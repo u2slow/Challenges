@@ -4,11 +4,18 @@ class point():
         self.lock = False
         self.compartment = compartment
 
+listofpoints = [
+    [[],[],[]],
+    [[],[],[]],
+    [[],[],[]],
+]
 feld = []
+
 for i in range(9):
     feld.append([])
     for n in range(9):
         feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
+        listofpoints[int(i/3)][int(n/3)].append({"x": i, "y": n})
 
 def getFeld():
     feld[0][8].value = 2
@@ -86,6 +93,7 @@ def findStart(iFeld):
             if iFeld[i][n].value == 0:
                 return {"x": i,
                         "y": n}
+    return True
 
 def insertParam(counter, param):
     val = cell(param["x"], param["y"], counter)
@@ -102,6 +110,10 @@ def checkParam(val):
     for i in range(9):
         if val.val == tFeld[i][val.yposition].value:
             return False
+    valList = []
+    for i in listofpoints[val.xposition][val.xposition]:
+        valList.append(tFeld[i["x"]][i["y"]].value)
+    print("v: ",valList)
     display()
     return True
 
@@ -139,20 +151,25 @@ def findsecondStart(istart):
 def mainLoop():
     counter = 1
     start = findStart(tFeld)
-    for i in range(1000000000):
-        if counter > 9: 
+    for i in range(10):
+        if counter > 9:
             start = findsecondStart(start)
+            if start == True:
+                break
             counter = tFeld[start["x"]][start["y"]].value + 1
             tFeld[start["x"]][start["y"]].value = 0
             continue
         else:
             start = findStart(tFeld)
+            if start== True:
+                break
         if insertParam(counter, start):
             counter = 1
             continue
         else:
             counter += 1
             continue
+    display()
+    print ("fertig")
 
-#ReMainLoop(1, findStart(tFeld))
 mainLoop()
