@@ -1,13 +1,14 @@
 class point():
-    def __init__(self,value):
+    def __init__(self,value,compartment):
         self.value = value
         self.lock = False
+        self.compartment = compartment
 
 feld = []
 for i in range(9):
     feld.append([])
     for n in range(9):
-        feld[i].append(point(0))
+        feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
 
 def getFeld():
     feld[0][8].value = 2
@@ -63,6 +64,16 @@ def getFeld():
 getFeld()
 tFeld = feld
 
+def display():
+    x = []
+    for i in range(9):
+        x.append([])
+        for n in range(9):
+            x[i].append(tFeld[i][n].value)
+    for i in x:
+        print(i)
+    print("")
+
 class cell():
     def __init__(self, xposition, yposition, val):
         self.xposition = xposition
@@ -91,6 +102,7 @@ def checkParam(val):
     for i in range(9):
         if val.val == tFeld[i][val.yposition].value:
             return False
+    display()
     return True
 
 
@@ -107,16 +119,6 @@ def checkRow(val):
             else:
                 return 10
     return 10
-
-def display():
-    x = []
-    for i in range(9):
-        x.append([])
-        for n in range(9):
-            x[i].append(tFeld[i][n].value)
-    for i in x:
-        print(i)
-    print("")
 
 def findsecondStart(istart):
     start = istart
@@ -138,8 +140,6 @@ def mainLoop():
     counter = 1
     start = findStart(tFeld)
     for i in range(1000000000):
-        display()
-        
         if counter > 9: 
             start = findsecondStart(start)
             counter = tFeld[start["x"]][start["y"]].value + 1
