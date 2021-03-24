@@ -110,10 +110,10 @@ def checkParam(val):
     for i in range(9):
         if val.val == tFeld[i][val.yposition].value:
             return False
-    valList = []
-    for i in listofpoints[val.xposition][val.xposition]:
-        valList.append(tFeld[i["x"]][i["y"]].value)
-    print("v: ",valList)
+
+    for i in listofpoints[0][0]:
+        if tFeld[i["x"]][i["y"]].value == val.val:
+            return False
     display()
     return True
 
@@ -151,7 +151,7 @@ def findsecondStart(istart):
 def mainLoop():
     counter = 1
     start = findStart(tFeld)
-    for i in range(10):
+    for i in range(1000000000):
         if counter > 9:
             start = findsecondStart(start)
             if start == True:

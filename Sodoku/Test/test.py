@@ -68,6 +68,12 @@ def getFeld():
     feld[8][1].lock = True
     feld[8][5].value = 5
     feld[8][5].lock = True
+
+    ##Test Kram##
+    feld[0][0].value = 2
+    feld[0][2].value = 2
+
+
 getFeld()
 tFeld = feld
 
@@ -110,10 +116,12 @@ def checkParam(val):
     for i in range(9):
         if val.val == tFeld[i][val.yposition].value:
             return False
-    valList = []
-    for i in listofpoints[val.xposition][val.xposition]:
-        valList.append(tFeld[i["x"]][i["y"]].value)
-    print("v: ",valList)
+
+    for i in listofpoints[0][0]:
+        if tFeld[i["x"]][i["y"]].value == val.val:
+            return False
+    
+
     display()
     return True
 
@@ -149,10 +157,8 @@ def findsecondStart(istart):
                      "y": y}
             
 def mainLoop():
-    counter = 1
-    start = findStart(tFeld)
-    
     display()
-    print ("fertig")
+    print(insertParam(4,{"x": 2, "y": 1}))
+    tFeld[2][1].value = 10
 
 mainLoop()

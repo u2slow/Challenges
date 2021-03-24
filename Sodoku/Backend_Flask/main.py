@@ -4,8 +4,9 @@ app = Flask(__name__)
 
 @app.route('/',methods=['GET'])
 def solve():
-    print(request.data)
-    return{"message": "hello"}
+    data = request.data
+    print(data)
+    return {"message": "good morning"}
 
 if __name__ =="__main__":
     app.run(debug=True)
