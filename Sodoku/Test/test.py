@@ -151,24 +151,7 @@ def findsecondStart(istart):
 def mainLoop():
     counter = 1
     start = findStart(tFeld)
-    for i in range(10):
-        if counter > 9:
-            start = findsecondStart(start)
-            if start == True:
-                break
-            counter = tFeld[start["x"]][start["y"]].value + 1
-            tFeld[start["x"]][start["y"]].value = 0
-            continue
-        else:
-            start = findStart(tFeld)
-            if start== True:
-                break
-        if insertParam(counter, start):
-            counter = 1
-            continue
-        else:
-            counter += 1
-            continue
+    
     display()
     print ("fertig")
 
