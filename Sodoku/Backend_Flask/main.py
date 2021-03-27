@@ -1,12 +1,13 @@
 from flask import Flask , request, jsonify
+import solve
 
 app = Flask(__name__)
 
 @app.route('/',methods=['GET'])
-def solve():
+def getdata():
     data = request.data
-    print(data)
-    return {"message": "good morning"}
+    solvedFeld = solve.mainLoop()
+    return {"message": "get data sucessfully"}
 
 if __name__ =="__main__":
     app.run(debug=True)

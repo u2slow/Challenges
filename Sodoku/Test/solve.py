@@ -4,19 +4,6 @@ class point():
         self.lock = False
         self.compartment = compartment
 
-listofpoints = [
-    [[],[],[]],
-    [[],[],[]],
-    [[],[],[]],
-]
-feld = []
-
-for i in range(9):
-    feld.append([])
-    for n in range(9):
-        feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
-        listofpoints[int(i/3)][int(n/3)].append({"x": i, "y": n})
-
 def getFeld():
     feld[0][8].value = 2
     feld[0][8].lock = True
@@ -69,14 +56,6 @@ def getFeld():
     feld[8][5].value = 5
     feld[8][5].lock = True
 
-    ##Test Kram##
-    feld[0][0].value = 2
-    feld[0][2].value = 2
-
-
-getFeld()
-tFeld = feld
-
 def display():
     x = []
     for i in range(9):
@@ -109,19 +88,20 @@ def insertParam(counter, param):
     return False
 
 def checkParam(val):
+    ##Horizontal##
     row = tFeld[val.xposition]
     for i in row:
         if val.val == i.value:
             return False
+    ##Vertical##
     for i in range(9):
         if val.val == tFeld[i][val.yposition].value:
             return False
-
-    for i in listofpoints[0][0]:
+    ##compartment##
+    for i in listofpoints[int(val.xposition/3)][int(val.yposition/3)]:
         if tFeld[i["x"]][i["y"]].value == val.val:
             return False
     
-
     display()
     return True
 
@@ -157,8 +137,44 @@ def findsecondStart(istart):
                      "y": y}
             
 def mainLoop():
+    counter = 1
+    start = findStart(tFeld)
+    for i in range(1000000000):
+        if counter > 9:
+            start = findsecondStart(start)
+            if start == True:
+                break
+            counter = tFeld[start["x"]][start["y"]].value + 1
+            tFeld[start["x"]][start["y"]].value = 0
+            continue
+        else:
+            start = findStart(tFeld)
+            if start== True:
+                break
+        if insertParam(counter, start):
+            counter = 1
+            continue
+        else:
+            counter += 1
+            continue
     display()
-    print(insertParam(4,{"x": 2, "y": 1}))
-    tFeld[2][1].value = 10
+    print ("fertig")
 
-mainLoop()
+if __name__ == '__main__':
+    listofpoints = [
+    [[],[],[]],
+    [[],[],[]],
+    [[],[],[]],
+    ]
+    feld = []
+
+    for i in range(9):
+        feld.append([])
+        for n in range(9):
+            feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
+            listofpoints[int(i/3)][int(n/3)].append({"x": i, "y": n})
+
+    getFeld()
+    tFeld = feld
+
+    mainLoop()
