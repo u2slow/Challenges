@@ -4,11 +4,26 @@ class point():
         self.lock = False
         self.compartment = compartment
 
+listofpoints = [
+    [[],[],[]],
+    [[],[],[]],
+    [[],[],[]],
+    ]
+feld = []
+for i in range(9):
+    feld.append([])
+    for n in range(9):
+        feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
+        listofpoints[int(i/3)][int(n/3)].append({"x": i, "y": n})
+
+feld[0][0].value = 9
+feld[0][0].lock = True
+tFeld = feld
+
 def getFeld(indata):
     for i in indata:
         tFeld[i[0]][i[1]].value = i[2]
         tFeld[i[0]][i[1]].lock = True
-    
 
 def display():
     x = []
@@ -59,8 +74,7 @@ def checkParam(val):
     display()
     return True
 
-
-def checkRow(val):
+def checkRow(val):#lasse ich jetzt erst einmal weg kann sein das ich das noch brauche
     print("check")
     val = val
     s = sorted(tFeld[val.xposition].value)
@@ -90,9 +104,7 @@ def findsecondStart(istart):
             return {"x": x,
                      "y": y}
             
-def mainLoop(data):
-    getFeld(data)
-    tFeld = feld
+def mainLoop():
     counter = 1
     start = findStart(tFeld)
     while True:
@@ -120,22 +132,5 @@ def mainLoop(data):
         for n in tFeld[i]:
             outfeld[i].append(tFeld[i][n].value)
     return outfeld
-        
 
-if __name__ == '__main__':
-    listofpoints = [
-    [[],[],[]],
-    [[],[],[]],
-    [[],[],[]],
-    ]
-    feld = []
-
-    for i in range(9):
-        feld.append([])
-        for n in range(9):
-            feld[i].append(point(0, {"x": int(i/3), "y": int(n/3)}))
-            listofpoints[int(i/3)][int(n/3)].append({"x": i, "y": n})
-
-    tFeld = feld
-
-    mainLoop()
+mainLoop() 
