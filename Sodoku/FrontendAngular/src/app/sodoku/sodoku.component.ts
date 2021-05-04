@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { GetApiService } from './../get-api.service';
 import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
