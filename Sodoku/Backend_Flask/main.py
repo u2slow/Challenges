@@ -6,7 +6,6 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app)
 
-
 app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/',methods=['POST'])
 def getdata():
@@ -22,4 +21,4 @@ def test():
     return jsonify({"message": "stu"})
 
 if __name__ =="__main__":
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0")
