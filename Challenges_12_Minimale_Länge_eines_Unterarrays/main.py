@@ -28,27 +28,6 @@ def solve():
             counter = 0
 
 
-def solve2():
-    resp = requests.get(URLchallenge).json()
-
-    k = resp['k']
-    data = resp['list']
-    print("K: ", k)
-    print(data)
-
-    counter = 0
-    sol = 100000000
-
-    for el in range(len(data)):
-        for indesadd in range(1000000000):
-            counter = counter + data[el+indesadd]
-            if counter >= k or indesadd > sol:
-                sol = indesadd
-                break
-    
-    print(sol)
-    return sol
-
 #print(solve())
 for i in range(10):
     resp = requests.post(URLsolution, data = json.dumps({"token": solve()}))
