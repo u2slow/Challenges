@@ -27,6 +27,7 @@ def compare(a_interval, b_interval):
         return [0,0,0]
 
 def solve(resp):
+    print(resp)
     i = 0
     while i < len(resp):
         n = 0
@@ -34,18 +35,18 @@ def solve(resp):
         while n < len(resp):
             print(n)
             if i == n:
+                n = n +1
                 continue
             value = compare(resp[i], resp[n])
-            del resp[i]
-            del resp[n-1]
             if len(value) == 2:
                 del resp[i]
                 del resp[n-1]
                 resp.insert(i-1, value)
             n = n + 1
         i = i + 1
+    print(resp)
     return resp
-                
+
 
 #print(compare([5,8],[1,5]))
-print(requests.post(URLsolution, data=json.dumps({"token": solve(resp)})))
+print(requests.post(URLsolution, data=json.dumps({"token": solve(resp)})).text)
