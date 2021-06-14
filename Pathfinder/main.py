@@ -46,11 +46,14 @@ class environment:
         child = self.spread()
         print(child)
         route = [child]
-        for i in range(100):
-            print(self.background[child[0]][child[1]].parent)
+        while child != self.start:
+            print("n", self.background[child[0]][child[1]].location, "parent:",self.background[child[0]][child[1]].parent)
             child = self.background[child[0]][child[1]].parent
             route.append(child)
-        print(child)
+        print(route)
+        for i in route:
+            self.background[i[0]][i[1]].status = status.route
+        self.show()
     def spread(self):
         search = set()
         while True:
@@ -61,13 +64,14 @@ class environment:
                              (i[0],i[1]-1)]
                 #print(pre_search)
                 for n in pre_search:
-                    if 0 <= n[0] < self.size and 0 <= n[1] < self.size:
+                    if 0 <= n[0] < self.size and 0 <= n[1] < self.size and self.background[n[0]][n[1]].status != 7:
                         #print(n)
                         if self.background[n[0]][n[1]].status.value == 4:
+                            self.show()
                             return i
                         if self.background[n[0]][n[1]].status.value == 0:
-                            self.background[i[0]][i[1]].status = status.searched
-                            self.background[i[0]][i[1]].parent = n
+                            self.background[n[0]][n[1]].status = status.searched
+                            self.background[n[0]][n[1]].parent = i      #parent wird noch falsch zugewiesen
                             search.add(n)
             self.show()
             self.lastsearch = list(search)
@@ -80,8 +84,10 @@ class status(Enum):
     search = 5
     lastsearch = 6
     searched = 7
+    route = 8
 
 
 if __name__ == '__main__':
     env = environment(8,[1,1],[6,6], [[2,3],[2,1],[3,3],[4,3]])
+    env.show()
     env.findPath()
