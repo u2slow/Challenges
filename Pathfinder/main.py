@@ -88,6 +88,6 @@ class status(Enum):
 
 
 if __name__ == '__main__':
-    env = environment(8,[1,1],[6,6], [[2,3],[2,1],[3,3],[4,3]])
+    env = environment(16,[1,1],[14,14], [[2,3],[2,1],[3,3],[4,3]])
     env.show()
     env.findPath()
