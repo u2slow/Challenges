@@ -9,8 +9,6 @@ print(unsort_list)
 
 for n in range(len(unsort_list)):
 
-    #print(unsort_list)
-
     for i in range(len(unsort_list)):
         if i + 1 + n >= len(unsort_list):
             break
