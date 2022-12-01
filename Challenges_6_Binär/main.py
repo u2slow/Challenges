@@ -1,25 +1,19 @@
-import requests
 
-URLchallenge = "https://cc.the-morpheus.de/challenges/6/"
-URLsolution = "https://cc.the-morpheus.de/solutions/6/"
+#8 4 2 1 
+#1 0 1 1
 
-resp = requests.get(URLchallenge).text
+def int2bin(b):
+    bi = b[2:]
+    bi = bi[::-1]
+    result = 0
+    counter = len(bi) - 1
 
-num = "0"
-
-
-
-def addOne(strNumber):
-    for i in range(len(strNumber)):
-
-        if strNumber[i] == "0":
-
-            strNumber = "0"*i +"1"+ strNumber[i+1:]
-            return strNumber
-    
-    strNumber = "0"*len(strNumber) + "1"
-
-    return strNumber
+    while counter >= 0:
+        if bi[counter ] == "1":
+            result += 2**counter
+        counter -=1
+    return result 
 
 
-print(bin(6))
+print(bin(12))
+print(int2bin(bin(133700)))
